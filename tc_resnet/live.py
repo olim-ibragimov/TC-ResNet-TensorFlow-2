@@ -51,7 +51,8 @@ def live(params):
                     recent_signal = recent_signal[:sr * audio_length]
                     break
             stream.close()
-            sf.write(f"recording_{recording_id}.wav", np.array(recent_signal), sr)
+            rec_path = PROJECT_PATH / f'recording_{recording_id}.wav'
+            sf.write(rec_path, np.array(recent_signal), sr)
             print("Recording finished! Result is:")
             mfcc = DataPreprocessor.get_mfcc(np.asarray(recent_signal), sr)
             y_pred = model.predict(np.array([mfcc]))[0]
