@@ -18,13 +18,13 @@ def train(params):
     num_test = X_test.shape[0]
     num_validation = X_validation.shape[0]
 
-    model_14 = get_tc_resnet_8((input_length, num_channel), num_classes, 1.5)
-    model_14.compile(optimizer=Adam(),
-                     loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+    model_8 = get_tc_resnet_8((input_length, num_channel), num_classes, 1.5)
+    model_8.compile(optimizer=Adam(),
+                    loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
     checkpoint_cb = ModelCheckpoint('weights.{epoch:02d}-{val_loss:.2f}.h5', save_weights_only=True, period=5)
 
-    model_14.fit(
+    model_8.fit(
         x=X_train,
         y=y_train,
         batch_size=1024,
@@ -33,8 +33,8 @@ def train(params):
         validation_data=(X_test, y_test)
     )
 
-    print(model_14.evaluate(X_validation, y_validation))
-    model_14.save_weights('weights.h5')
+    print(model_8.evaluate(X_validation, y_validation))
+    model_8.save_weights('weights.h5')
 
 
 if __name__ == '__main__':
