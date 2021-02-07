@@ -5,7 +5,7 @@ from train import get_tc_resnet_8
 from os import listdir
 from os.path import isdir, join
 # from tensorflow.keras.models import load_model
-from process_data import get_mfcc
+from data_preprocessor import DataPreprocessor
 
 sr = 16000
 audio_length = 2
@@ -45,7 +45,7 @@ try:
         stream.close()
         sf.write(f"recording_{recording_id}.wav", np.array(recent_signal), sr)
         print("Recording finished! Result is:")
-        mfcc = get_mfcc(np.asarray(recent_signal), sr)
+        mfcc = DataPreprocessor.get_mfcc(np.asarray(recent_signal), sr)
         y_pred = model.predict(np.array([mfcc]))[0]
         result_id = np.argmax(y_pred)
         result_prob = y_pred[result_id]

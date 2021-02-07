@@ -1,11 +1,15 @@
-if __name__ == '__main__':
-    from load_data import load_data_from_folder
-    from train import get_tc_resnet_8, get_tc_resnet_14
-    from tensorflow.keras.optimizers import Adam
-    from tensorflow.keras.callbacks import ModelCheckpoint
+import hydra
+from tensorflow.keras.callbacks import ModelCheckpoint
+from tensorflow.keras.optimizers import Adam
 
-    X_train, y_train, X_test, y_test, X_validation, y_validation, classes = load_data_from_folder(
-        '..\dataset')
+from data_loader import DataLoader
+from train import get_tc_resnet_8
+
+
+@hydra.main(config_path='configs', config_name='config')
+def main(params):
+    data_loader = DataLoader(path=params['dataset_path'], sample_size=params['sample_size'])
+    X_train, y_train, X_test, y_test, X_validation, y_validation, classes = data_loader.load_data_from_folder()
     print(X_train.shape)
     num_classes = len(classes)
     (num_train, input_length, num_channel) = X_train.shape
@@ -29,3 +33,7 @@ if __name__ == '__main__':
 
     print(model_14.evaluate(X_validation, y_validation))
     model_14.save_weights('weights.h5')
+
+
+if __name__ == '__main__':
+    main()
