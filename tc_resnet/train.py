@@ -3,11 +3,11 @@ from tensorflow.keras.callbacks import ModelCheckpoint
 from tensorflow.keras.optimizers import Adam
 
 from data_loader import DataLoader
-from train import get_tc_resnet_8
+from model import get_tc_resnet_8
 
 
-@hydra.main(config_path='configs', config_name='config')
-def main(params):
+@hydra.main(config_path='configs', config_name='train')
+def train(params):
     data_loader = DataLoader(path=params['dataset_path'], sample_size=params['sample_size'])
     X_train, y_train, X_test, y_test, X_validation, y_validation, classes = data_loader.load_data_from_folder()
     print(X_train.shape)
@@ -36,4 +36,4 @@ def main(params):
 
 
 if __name__ == '__main__':
-    main()
+    train()

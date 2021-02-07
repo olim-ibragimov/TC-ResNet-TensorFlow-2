@@ -1,0 +1,9 @@
+defaults:
+  - dataset: dataset
+
+sampling_rate: 16000
+audio_length: 2
+blocksize: 100
+channels: 1
+latency: 'low'
+weights_file: 'weights.h5'

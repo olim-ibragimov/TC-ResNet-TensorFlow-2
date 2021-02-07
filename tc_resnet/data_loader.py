@@ -1,15 +1,13 @@
 from os import listdir
 from os.path import join, isfile, isdir, normpath
 from multiprocessing import Pool, cpu_count
-from pathlib import Path
 
 from tqdm import tqdm
 import numpy as np
 from itertools import zip_longest
 
 from data_preprocessor import DataPreprocessor
-
-PROJECT_PATH = Path(__file__).parent
+from tc_resnet import PROJECT_PATH
 
 
 class DataLoader:
