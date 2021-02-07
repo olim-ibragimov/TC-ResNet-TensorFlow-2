@@ -12,29 +12,30 @@ from tc_resnet import PROJECT_PATH
 
 class DataLoader:
 
-    def __init__(self, path, sample_size):
+    def __init__(self, classes, path, sample_size):
         """
         Given the path and sample size DataLoader loads the data and applies preprocessing steps described in DataPreprocessor class
 
+        :param classes: list of classes to load from the dataset
+        :type path: list
         :param path: dataset path
         :type path: str
         :param sample_size: number of files per class used for training
         :type sample_size: int
         """
+        self.classes = classes
         self.dataset_path = PROJECT_PATH / path
         self.sample_size = sample_size
 
     def __load_audio_filenames_with_class__(self):
-        classes = [item for item in listdir(self.dataset_path) if isdir(
-            join(self.dataset_path, item)) and not item.startswith('_')]
         filenames = []
         class_ids = []
-        for i in range(len(classes)):
-            c = classes[i]
+        for i in range(len(self.classes)):
+            c = self.classes[i]
             class_filenames = self.__load_audio_filenames__(join(self.dataset_path, c))
             filenames.extend(class_filenames)
             class_ids.extend([i] * len(class_filenames))
-        return filenames, class_ids, classes
+        return filenames, class_ids, self.classes
 
     def __load_audio_filenames__(self, class_folder):
         filenames = []

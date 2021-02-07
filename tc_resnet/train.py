@@ -8,7 +8,9 @@ from model import get_tc_resnet_8
 
 @hydra.main(config_path='configs', config_name='train')
 def train(params):
-    data_loader = DataLoader(path=params['dataset_path'], sample_size=params['sample_size'])
+    data_loader = DataLoader(classes=list(params['all_classes']),
+                             path=params['dataset_path'],
+                             sample_size=params['sample_size'])
     X_train, y_train, X_test, y_test, X_validation, y_validation, classes = data_loader.load_data_from_folder()
     print(X_train.shape)
     num_classes = len(classes)

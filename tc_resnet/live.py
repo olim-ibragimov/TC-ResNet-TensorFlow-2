@@ -22,11 +22,9 @@ def live(params):
     sd.default.blocksize = blocksize
     sd.default.latency = params['latency']
 
-    root_folder = PROJECT_PATH / params['dataset_path']
     weights_path = PROJECT_PATH / params['weights_file']
 
-    classes = [item for item in listdir(root_folder) if isdir(
-        join(root_folder, item)) and not item.startswith('_')]
+    classes = list(params['all_classes'])
     num_classes = len(classes)
 
     # model = get_tc_resnet_14((321, 40), num_classes, 1.5)
@@ -53,10 +51,11 @@ def live(params):
             stream.close()
             rec_path = PROJECT_PATH / f'recording_{recording_id}.wav'
             sf.write(rec_path, np.array(recent_signal), sr)
+            recording_id += 1
             print("Recording finished! Result is:")
             mfcc = DataPreprocessor.get_mfcc(np.asarray(recent_signal), sr)
             y_pred = model.predict(np.array([mfcc]))[0]
-            result_id = np.argmax(y_pred)
+            result_id = int(np.argmax(y_pred))
             result_prob = y_pred[result_id]
             print("result id: " + str(result_id) + " " + classes[result_id] + " " + str(result_prob))
             recent_signal = []
