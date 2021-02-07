@@ -9,10 +9,17 @@ The goal is to provide a lightweight CNN model for Keyword Spotting with audio d
 
 [Inspired from this Keras implementation](https://github.com/tranHieuDev23/TC-ResNet)
 
-# How to use
+## System requirements for GPU training
 
-For training, testing and validation, this implementation uses [Google's Speech Command Dataset](https://ai.googleblog.com/2017/08/launching-speech-commands-dataset.html). Please download the dataset, and extract into a folder named `dataset` in the root folder of the repository.
+- [Python 3.8](https://www.python.org/downloads/)
+- [TensorFlow 2.4.1](https://www.tensorflow.org/install)
+- [NVIDIA Driver 460.89](https://www.nvidia.com/en-us/drivers/results/167753/)
+- [CUDA 11.0](https://developer.nvidia.com/cuda-11.0-update1-download-archive)
+- [cuDNN v8.0.4 for CUDA 11.0](https://developer.nvidia.com/rdp/cudnn-archive#a-collapse804-110)
 
-Run `main.py` to train the model.
 
-Run `live.py` to demostrate live prediction of the model in real time.
+[comment]: <> (For training, testing and validation, this implementation uses [Google's Speech Command Dataset]&#40;https://ai.googleblog.com/2017/08/launching-speech-commands-dataset.html&#41;. Please download the dataset, and extract into a folder named `dataset` in the root folder of the repository.)
+
+[comment]: <> (Run `main.py` to train the model.)
+
+[comment]: <> (Run `live.py` to demostrate live prediction of the model in real time.)
